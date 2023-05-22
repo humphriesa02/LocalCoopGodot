@@ -345,17 +345,17 @@ script = ExtResource("1_1e1uu")
 [node name="World" type="Node" parent="."]
 script = ExtResource("2_ko82p")
 
-[node name="Player" parent="World" instance=ExtResource("3_4il7o")]
-
-[node name="RemoteTransform2D2" type="RemoteTransform2D" parent="World/Player"]
-remote_path = NodePath("../../Camera2D")
-
 [node name="TileMap" type="TileMap" parent="World"]
 position = Vector2(116, 45)
 tile_set = SubResource("TileSet_f5e06")
 format = 2
 layer_0/name = "Ground"
 layer_0/tile_data = PackedInt32Array(196605, 65537, 6, 196606, 65537, 6, 196607, 65537, 6, 131072, 65537, 6, 131073, 65537, 6, 131074, 65537, 6, 131075, 65537, 6, 131076, 65537, 6, 131077, 65537, 6, 131078, 65537, 6, 131079, 65537, 6, 131080, 65537, 6, 131081, 65537, 6, 131082, 65537, 6, 196604, 65537, 6, 196603, 65537, 6, 196602, 1, 6, 131083, 65537, 6, 131084, 65537, 6, 131085, 65537, 6, 131086, 131073, 6)
+
+[node name="Player" parent="World" instance=ExtResource("3_4il7o")]
+
+[node name="RemoteTransform2D2" type="RemoteTransform2D" parent="World/Player"]
+remote_path = NodePath("../../Camera2D")
 
 [node name="Camera2D" type="Camera2D" parent="World"]
 process_callback = 0

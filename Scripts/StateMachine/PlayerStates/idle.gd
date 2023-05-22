@@ -22,6 +22,8 @@ func update(delta: float) -> void:
 		if Input.is_action_just_released("down"+str(player.player_id)):
 			player.animated_sprite.play("idle")
 			is_crouching = false
+	
+	var input_direction_x = player.get_input_direction()
 
 	if Input.is_action_just_pressed("up"+str(player.player_id)):
 		# As we'll only have one air state for both jump and fall, we use the `msg` dictionary 
@@ -31,8 +33,11 @@ func update(delta: float) -> void:
 		is_crouching = true
 	elif Input.is_action_just_pressed("attack"+str(player.player_id)):
 		state_machine.transition_to("Attack", {idle = true})
-	elif Input.is_action_pressed("left"+str(player.player_id)) or Input.is_action_pressed("right"+str(player.player_id)):
-		state_machine.transition_to("Run")
+	elif not is_equal_approx(input_direction_x, 0.0):
+		if is_crouching:
+			state_machine.transition_to("Run", {is_crouching = true})
+		else:
+			state_machine.transition_to("Run")
 
 func physics_update(delta: float) -> void:
 	player.apply_gravity(delta)

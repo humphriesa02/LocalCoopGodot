@@ -4,7 +4,11 @@ var is_crouching = false
 
 func enter(_msg := {}) -> void:
 	# We must declare all the properties we access through `owner` in the `Player.gd` script.
-	player.animated_sprite.play("run")
+	if _msg.has("is_crouching"):
+		is_crouching = true
+		player.animated_sprite.play("crouch_run")
+	else:
+		player.animated_sprite.play("run")
 
 func physics_update(delta: float) -> void:
 	# Notice how we have some code duplication between states. That's inherent to the pattern,
