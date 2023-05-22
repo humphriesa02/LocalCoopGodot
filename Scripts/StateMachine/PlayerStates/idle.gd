@@ -5,9 +5,13 @@ var is_crouching = false
 # Upon entering the state, we set the Player node's velocity to zero.
 func enter(_msg := {}) -> void:
 	# We must declare all the properties we access through `owner` in the `Player.gd` script.
-	player.animated_sprite.play("idle")
 	player.velocity = Vector2.ZERO
-	is_crouching = false
+	if _msg.has("is_crouching"):
+		is_crouching = true
+		player.animated_sprite.play("crouch_idle")
+	else:
+		is_crouching = false
+		player.animated_sprite.play("idle")
 
 
 func update(delta: float) -> void:

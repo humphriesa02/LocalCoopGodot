@@ -42,4 +42,7 @@ func physics_update(delta: float) -> void:
 	elif Input.is_action_just_pressed("attack"+str(player.player_id)):
 		state_machine.transition_to("Attack", {run = true})
 	elif is_equal_approx(player.velocity.x, 0.0):
-		state_machine.transition_to("Idle")
+		if is_crouching:
+			state_machine.transition_to("Idle", {is_crouching = true})
+		else:
+			state_machine.transition_to("Idle")
