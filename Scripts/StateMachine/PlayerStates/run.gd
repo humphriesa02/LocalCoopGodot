@@ -8,6 +8,7 @@ func enter(_msg := {}) -> void:
 		is_crouching = true
 		player.animated_sprite.play("crouch_run")
 	else:
+		is_crouching = false
 		player.animated_sprite.play("run")
 
 func physics_update(delta: float) -> void:

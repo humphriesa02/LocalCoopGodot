@@ -6,6 +6,8 @@ var speed : float
 @export var run_speed : float = 200.0
 @export var crouch_speed : float = 125.0
 @export var jump_velocity : float = -200.0
+@export var full_hop : float = 30.0
+@export var min_hop : float = 18.0 
 @export var double_jump_velocity: float = -150.0
 
 @onready var animated_sprite : AnimatedSprite2D = $AnimatedSprite2D
@@ -17,6 +19,7 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 func _ready():
 	speed = run_speed
+
 
 func flip(direction):
 	if direction > 0:
