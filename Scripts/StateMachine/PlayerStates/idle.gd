@@ -8,10 +8,10 @@ func enter(_msg := {}) -> void:
 	player.velocity = Vector2.ZERO
 	if _msg.has("is_crouching"):
 		is_crouching = true
-		player.animated_sprite.play("crouch_idle")
+		player.animation_player.play("crouch_idle")
 	else:
 		is_crouching = false
-		player.animated_sprite.play("idle")
+		player.animation_player.play("idle")
 
 
 func update(delta: float) -> void:
@@ -22,9 +22,9 @@ func update(delta: float) -> void:
 		return
 		
 	if is_crouching:
-		player.animated_sprite.play("crouch_idle")
+		player.animation_player.play("crouch_idle")
 		if Input.is_action_just_released("down"+str(player.player_id)):
-			player.animated_sprite.play("idle")
+			player.animation_player.play("idle")
 			is_crouching = false
 	
 	var input_direction_x = player.get_input_direction()

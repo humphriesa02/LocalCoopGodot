@@ -10,6 +10,8 @@ var jump_button_press_time: float = 0
 var max_jump_press_time: float = 0.3
 var max_jump_scale: float = 100
 var has_jumped : bool
+var descent_modifier : float = 0
+var max_descent_modifier : float = 8
 
 # If we get a message asking us to jump, we jump.
 func enter(msg := {}) -> void:
@@ -17,7 +19,8 @@ func enter(msg := {}) -> void:
 	initial_jump_height = player.min_hop
 	player.velocity.y = 0
 	can_double_jump = false
-	player.animated_sprite.play("jump_start")
+	descent_modifier = 0
+	player.animation_player.play("jump_start")
 	if msg.has("do_jump"):
 		has_jumped = true
 		jump_button_pressed = true
@@ -63,27 +66,33 @@ func physics_update(delta: float) -> void:
 			frames_count += 1
 		else:
 			# Normal jump behavior
-			player.velocity.y += player.gravity * delta
+			player.velocity.y += player.gravity * delta + descent_modifier
 	
 	else:
 		# handle falling logic
-		player.velocity.y += player.gravity * delta
+		player.velocity.y += player.gravity * delta + descent_modifier
 	
 	if player.velocity.y > 0:
-			player.animated_sprite.play("fall")
+			if has_double_jumped:
+				player.animation_player.play("double_jump_fall")
+			else:	
+				player.animation_player.play("fall")
 			
 	if Input.is_action_just_pressed("up"+str(player.player_id)):
 		if not has_double_jumped:
 			if has_jumped and can_double_jump:
 				player.velocity.y = player.double_jump_velocity
-				player.animated_sprite.play("double jump")
+				player.animation_player.play("double jump")
 				has_double_jumped = true
 			elif not has_jumped:
 				player.velocity.y = player.double_jump_velocity
-				player.animated_sprite.play("double jump")
+				player.animation_player.play("double jump")
 				has_double_jumped = true
 	elif Input.is_action_pressed("attack"+str(player.player_id)):
-		player.animated_sprite.play("a_air")
+		player.animation_player.play("a_air")
+	elif Input.is_action_pressed("down"+str(player.player_id)):
+		if descent_modifier < max_descent_modifier:
+			descent_modifier += 1
 			
 	player.move_and_slide()
 

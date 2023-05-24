@@ -6,10 +6,10 @@ func enter(_msg := {}) -> void:
 	# We must declare all the properties we access through `owner` in the `Player.gd` script.
 	if _msg.has("is_crouching"):
 		is_crouching = true
-		player.animated_sprite.play("crouch_run")
+		player.animation_player.play("crouch_run")
 	else:
 		is_crouching = false
-		player.animated_sprite.play("run")
+		player.animation_player.play("run")
 
 func physics_update(delta: float) -> void:
 	# Notice how we have some code duplication between states. That's inherent to the pattern,
@@ -20,10 +20,10 @@ func physics_update(delta: float) -> void:
 		return
 		
 	if is_crouching:
-		player.animated_sprite.play("crouch_run")
+		player.animation_player.play("crouch_run")
 		player.speed = player.crouch_speed
 		if Input.is_action_just_released("down"+str(player.player_id)):
-			player.animated_sprite.play("run")
+			player.animation_player.play("run")
 			player.speed = player.run_speed
 			is_crouching = false
 

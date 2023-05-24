@@ -19,6 +19,10 @@ config/icon="res://icon.svg"
 
 window/stretch/scale=4.0
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/AS2P/plugin.cfg")
+
 [input]
 
 left0={
