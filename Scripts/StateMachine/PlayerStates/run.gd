@@ -38,14 +38,14 @@ func physics_update(delta: float) -> void:
 	# A good alternative would be to define a `get_input_direction()` function on the `Player.gd`
 	# script to avoid duplicating these lines in every script.
 	var input_direction_x = player.get_input_direction()
-	if input_direction_x != 0 and not is_sprinting:
-		player.speed = player.walk_speed
-		player.animation_player.play("walk")
+	if input_direction_x != 0:
+		if not is_sprinting and not is_crouching:
+			player.speed = player.walk_speed
+			player.animation_player.play("walk")
+		elif is_sprinting and not is_crouching:
+			player.speed = player.run_speed
+			player.animation_player.play("run")
 		player.velocity.x = player.speed * input_direction_x
-	elif input_direction_x != 0 and is_sprinting:
-		player.speed = player.run_speed
-		player.animation_player.play("run")
-		player.velocity.x = player.speed * input_direction_x	
 	else:
 		is_sprinting = true
 		player.velocity = lerp(player.velocity, Vector2.ZERO, delta * slow_down_speed)
@@ -68,6 +68,4 @@ func physics_update(delta: float) -> void:
 		else:
 			state_machine.transition_to("Idle")
 		player.speed = player.walk_speed
-	elif is_sprinting and (Input.is_action_just_released("right"+str(player.player_id)) or Input.is_action_just_released("left"+str(player.player_id))):
-		is_sprinting = false
 		
