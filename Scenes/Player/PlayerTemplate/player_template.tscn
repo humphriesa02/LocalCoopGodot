@@ -1,4 +1,4 @@
-[gd_scene load_steps=115 format=3 uid="uid://bp3t7wp83ywcc"]
+[gd_scene load_steps=119 format=3 uid="uid://bp3t7wp83ywcc"]
 
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_1os1x"]
 [ext_resource type="Texture2D" uid="uid://dcov8pc0nrwoq" path="res://Art/PlayerArt/Biker_attack1.png" id="2_sd0c2"]
@@ -13,6 +13,7 @@
 [ext_resource type="Script" path="res://Scripts/StateMachine/StateMachine.gd" id="8_l178f"]
 [ext_resource type="Script" path="res://Scripts/StateMachine/PlayerStates/idle.gd" id="9_otrrg"]
 [ext_resource type="Script" path="res://Scripts/StateMachine/PlayerStates/run.gd" id="10_dyqyi"]
+[ext_resource type="Texture2D" uid="uid://cpcxmrxah3mj6" path="res://Art/PlayerArt/Player Roll 48x48.png" id="11_bww7d"]
 [ext_resource type="Texture2D" uid="uid://colvjo61w5tey" path="res://Art/PlayerArt/TemplateArt/PlayerWalk 48x48.png" id="11_em8xt"]
 [ext_resource type="Script" path="res://Scripts/StateMachine/PlayerStates/air.gd" id="11_lr48w"]
 [ext_resource type="Texture2D" uid="uid://dbia0pyymnyx8" path="res://Art/PlayerArt/TemplateArt/Player Hurt 48x48.png" id="11_nfstl"]
@@ -617,6 +618,34 @@ tracks/2/keys = {
 "values": [true]
 }
 
+[sub_resource type="Animation" id="Animation_d80ln"]
+length = 0.333333
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.166667),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D:animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["slide_stop"]
+}
+
 [sub_resource type="Animation" id="Animation_2ybic"]
 length = 0.4
 tracks/0/type = "value"
@@ -687,6 +716,7 @@ _data = {
 "jump_max_height": SubResource("Animation_iegxl"),
 "jump_start": SubResource("Animation_mhrq2"),
 "run": SubResource("Animation_2vwao"),
+"slide_stop": SubResource("Animation_d80ln"),
 "take_damage": SubResource("Animation_2ybic"),
 "walk": SubResource("Animation_otugj")
 }
@@ -938,6 +968,14 @@ region = Rect2(294, 9, 32, 32)
 [sub_resource type="AtlasTexture" id="AtlasTexture_g443v"]
 atlas = ExtResource("7_c31id")
 region = Rect2(342, 9, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wonjt"]
+atlas = ExtResource("11_bww7d")
+region = Rect2(9, 8, 36, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nvfh2"]
+atlas = ExtResource("11_bww7d")
+region = Rect2(291, 8, 36, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qpls3"]
 atlas = ExtResource("11_nfstl")
@@ -1240,6 +1278,17 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_wonjt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nvfh2")
+}],
+"loop": true,
+"name": &"slide_stop",
+"speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_qpls3")
 }, {
 "duration": 1.0,
@@ -1307,7 +1356,7 @@ libraries = {
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 z_index = 1
 sprite_frames = SubResource("SpriteFrames_ub53l")
-animation = &"crouch_run"
+animation = &"walk"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0.75, 4.5)

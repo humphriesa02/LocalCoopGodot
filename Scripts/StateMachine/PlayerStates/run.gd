@@ -1,6 +1,9 @@
 extends PlayerState
 
 var is_crouching = false
+var current_inner_state = 0
+var is_sprinting : bool = false
+var slow_down_speed : float = 15
 
 func enter(_msg := {}) -> void:
 	# We must declare all the properties we access through `owner` in the `Player.gd` script.
@@ -8,8 +11,12 @@ func enter(_msg := {}) -> void:
 		is_crouching = true
 		player.animation_player.play("crouch_run")
 	else:
+		if player.speed == player.run_speed:
+			is_sprinting = true
+		else:
+			is_sprinting = false
 		is_crouching = false
-		player.animation_player.play("run")
+	
 
 func physics_update(delta: float) -> void:
 	# Notice how we have some code duplication between states. That's inherent to the pattern,
@@ -31,10 +38,23 @@ func physics_update(delta: float) -> void:
 	# A good alternative would be to define a `get_input_direction()` function on the `Player.gd`
 	# script to avoid duplicating these lines in every script.
 	var input_direction_x = player.get_input_direction()
-	player.velocity.x = player.speed * input_direction_x
+	if input_direction_x != 0 and not is_sprinting:
+		player.speed = player.walk_speed
+		player.animation_player.play("walk")
+		player.velocity.x = player.speed * input_direction_x
+	elif input_direction_x != 0 and is_sprinting:
+		player.speed = player.run_speed
+		player.animation_player.play("run")
+		player.velocity.x = player.speed * input_direction_x	
+	else:
+		is_sprinting = true
+		player.velocity = lerp(player.velocity, Vector2.ZERO, delta * slow_down_speed)
 	player.apply_gravity(delta)
 	player.move_and_slide()
 	player.flip(input_direction_x)
+	
+	
+#	
 
 	if Input.is_action_just_pressed("up"+str(player.player_id)):
 		state_machine.transition_to("Air", {do_jump = true})
@@ -47,3 +67,7 @@ func physics_update(delta: float) -> void:
 			state_machine.transition_to("Idle", {is_crouching = true})
 		else:
 			state_machine.transition_to("Idle")
+		player.speed = player.walk_speed
+	elif is_sprinting and (Input.is_action_just_released("right"+str(player.player_id)) or Input.is_action_just_released("left"+str(player.player_id))):
+		is_sprinting = false
+		

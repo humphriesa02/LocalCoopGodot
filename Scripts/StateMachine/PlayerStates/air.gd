@@ -71,7 +71,7 @@ func physics_update(delta: float) -> void:
 	else:
 		# handle falling logic
 		player.velocity.y += player.gravity * delta + descent_modifier
-	
+	print(player.velocity.x)
 	if player.velocity.y > 0:
 			if has_double_jumped:
 				player.animation_player.play("double_jump_fall")

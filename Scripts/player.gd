@@ -3,6 +3,7 @@ extends CharacterBody2D
 
 
 var speed : float
+@export var walk_speed : float = 100.0
 @export var run_speed : float = 200.0
 @export var crouch_speed : float = 125.0
 @export var jump_velocity : float = -200.0
@@ -25,7 +26,7 @@ var dirs = { "right": 0,  "left": 1 }
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 func _ready():
-	speed = run_speed
+	speed = walk_speed
 	current_dir = dirs.right
 
 
