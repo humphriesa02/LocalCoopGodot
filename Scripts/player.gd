@@ -22,6 +22,8 @@ var current_dir
 
 var dirs = { "right": 0,  "left": 1 }
 
+var ui_inputs = {}
+
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
@@ -43,8 +45,8 @@ func flip(direction):
 
 func get_input_direction():
 	var input_direction_x: float = (
-		Input.get_action_strength("right"+str(player_id))
-		- Input.get_action_strength("left"+str(player_id))
+		Input.get_action_strength("ui_right"+str(player_id))
+		- Input.get_action_strength("ui_left"+str(player_id))
 	)
 	return input_direction_x
 	

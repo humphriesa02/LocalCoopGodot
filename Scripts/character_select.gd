@@ -15,9 +15,9 @@ func _ready():
 func _process(delta):
 	if Input.is_action_just_pressed("attack0"):
 		player_images[player_index].visible = true
-		world.add_player(player_index)
+		world.add_player(player_index, true)
 		player_index += 1
 	if Input.is_action_just_pressed("attack1"):
 		player_images[player_index].visible = true
-		world.add_player(player_index)
+		world.add_player(player_index, true)
 		player_index += 1

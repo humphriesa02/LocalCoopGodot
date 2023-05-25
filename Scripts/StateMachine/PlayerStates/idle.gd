@@ -29,7 +29,7 @@ func update(delta: float) -> void:
 	
 	var input_direction_x = player.get_input_direction()
 
-	if Input.is_action_just_pressed("up"+str(player.player_id)):
+	if Input.is_action_just_pressed("ui_up"+str(player.player_id)):
 		# As we'll only have one air state for both jump and fall, we use the `msg` dictionary 
 		# to tell the next state that we want to jump.
 		state_machine.transition_to("Air", {do_jump = true})
