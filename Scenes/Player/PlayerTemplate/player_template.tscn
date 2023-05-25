@@ -1,9 +1,9 @@
-[gd_scene load_steps=119 format=3 uid="uid://bp3t7wp83ywcc"]
+[gd_scene load_steps=117 format=3 uid="uid://bp3t7wp83ywcc"]
 
 [ext_resource type="Script" path="res://Scripts/player.gd" id="1_1os1x"]
-[ext_resource type="Texture2D" uid="uid://dcov8pc0nrwoq" path="res://Art/PlayerArt/Biker_attack1.png" id="2_sd0c2"]
 [ext_resource type="Texture2D" uid="uid://cp0itabk2yhqk" path="res://Art/PlayerArt/TemplateArt/PlayerJumpKickFix-Sheet.png" id="2_ugp8i"]
 [ext_resource type="Texture2D" uid="uid://b1lnvieyd3kha" path="res://Art/PlayerArt/TemplateArt/Player Punch 64x64.png" id="3_uwn3t"]
+[ext_resource type="Texture2D" uid="uid://c3ykvu7yjqn7a" path="res://Art/PlayerArt/TemplateArt/Player Neutral attack-Sheet.png" id="3_xyugg"]
 [ext_resource type="Texture2D" uid="uid://c5eceaghogf0b" path="res://Art/PlayerArt/TemplateArt/Player Crouch-Idle 48x48.png" id="4_1fnm3"]
 [ext_resource type="Texture2D" uid="uid://b60pk2b6pesq6" path="res://Art/PlayerArt/TemplateArt/player air spin 48x48.png" id="4_e5ytx"]
 [ext_resource type="Texture2D" uid="uid://gkt803jl5x4q" path="res://Art/PlayerArt/TemplateArt/player jump 48x48.png" id="5_h3oyd"]
@@ -189,6 +189,7 @@ tracks/7/keys = {
 
 [sub_resource type="Animation" id="Animation_rgeq5"]
 length = 0.4
+step = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -212,6 +213,73 @@ tracks/1/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": ["a_idle_punch"]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Hitbox/CollisionShape2D:disabled")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.134),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Hitbox/CollisionShape2D:position:x")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 11, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.134, 0.201)
+}
+tracks/4/type = "bezier"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Hitbox/CollisionShape2D:position:y")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.134, 0.201)
+}
+tracks/5/type = "bezier"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Hitbox/CollisionShape2D:rotation")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 1.5708, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.134, 0.201)
+}
+tracks/6/type = "bezier"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("Hitbox/CollisionShape2D:scale:x")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.134, 0.201)
+}
+tracks/7/type = "bezier"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("Hitbox/CollisionShape2D:scale:y")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0, 4, -0.25, 0, 0.25, 0, 1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.134, 0.201)
 }
 
 [sub_resource type="Animation" id="Animation_ui20v"]
@@ -725,29 +793,21 @@ _data = {
 atlas = ExtResource("2_ugp8i")
 region = Rect2(8, 8, 32, 32)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_q2tnt"]
-atlas = ExtResource("2_sd0c2")
-region = Rect2(0, 14, 32, 34)
+[sub_resource type="AtlasTexture" id="AtlasTexture_obj3a"]
+atlas = ExtResource("3_xyugg")
+region = Rect2(0, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ijkp6"]
-atlas = ExtResource("2_sd0c2")
-region = Rect2(48, 14, 32, 34)
+[sub_resource type="AtlasTexture" id="AtlasTexture_hf2d4"]
+atlas = ExtResource("3_xyugg")
+region = Rect2(64, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_gb75b"]
-atlas = ExtResource("2_sd0c2")
-region = Rect2(96, 14, 32, 34)
+[sub_resource type="AtlasTexture" id="AtlasTexture_pf40f"]
+atlas = ExtResource("3_xyugg")
+region = Rect2(128, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_on3hu"]
-atlas = ExtResource("2_sd0c2")
-region = Rect2(144, 14, 32, 34)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_vf7a7"]
-atlas = ExtResource("2_sd0c2")
-region = Rect2(192, 14, 32, 34)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_o8krp"]
-atlas = ExtResource("2_sd0c2")
-region = Rect2(240, 14, 32, 34)
+[sub_resource type="AtlasTexture" id="AtlasTexture_vgygj"]
+atlas = ExtResource("3_xyugg")
+region = Rect2(192, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_q22yy"]
 atlas = ExtResource("3_uwn3t")
@@ -1037,22 +1097,16 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_q2tnt")
+"texture": SubResource("AtlasTexture_obj3a")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_ijkp6")
+"texture": SubResource("AtlasTexture_hf2d4")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_gb75b")
+"texture": SubResource("AtlasTexture_pf40f")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_on3hu")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_vf7a7")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_o8krp")
+"texture": SubResource("AtlasTexture_vgygj")
 }],
 "loop": false,
 "name": &"a_idle_punch",
@@ -1356,7 +1410,8 @@ libraries = {
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 z_index = 1
 sprite_frames = SubResource("SpriteFrames_ub53l")
-animation = &"walk"
+animation = &"a_idle_punch"
+frame = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0.75, 4.5)
