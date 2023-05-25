@@ -11,13 +11,13 @@ config_version=5
 [application]
 
 config/name="Rocket Launcher"
-run/main_scene="res://Scenes/world.tscn"
+run/main_scene="res://Scenes/Maps/world.tscn"
 config/features=PackedStringArray("4.0", "Forward Plus")
 config/icon="res://icon.svg"
 
 [display]
 
-window/stretch/scale=4.0
+window/stretch/scale=2.0
 
 [editor_plugins]
 

@@ -1,12 +1,35 @@
-[gd_scene load_steps=7 format=3 uid="uid://buspo22g4a7c4"]
+[gd_scene load_steps=8 format=3 uid="uid://b2llk2i187tp1"]
 
-[ext_resource type="Script" path="res://Scripts/main.gd" id="1_1e1uu"]
-[ext_resource type="Texture2D" uid="uid://bqd1ueofq00y0" path="res://Art/TileSheet.png" id="2_d46rr"]
-[ext_resource type="Script" path="res://Scripts/world.gd" id="2_ko82p"]
-[ext_resource type="PackedScene" uid="uid://bp3t7wp83ywcc" path="res://Scenes/Player/PlayerTemplate/player_template.tscn" id="3_4il7o"]
+[ext_resource type="Script" path="res://Scripts/main.gd" id="1_64308"]
+[ext_resource type="Texture2D" uid="uid://bqd1ueofq00y0" path="res://Art/TileSheet.png" id="3_fh65y"]
+[ext_resource type="PackedScene" uid="uid://bp3t7wp83ywcc" path="res://Scenes/Player/PlayerTemplate/player_template.tscn" id="4_3fum2"]
+[ext_resource type="PackedScene" uid="uid://dcdt1rfmub10c" path="res://Scenes/Player/FL1PP3R/fl1pp3r.tscn" id="4_adk5l"]
+
+[sub_resource type="GDScript" id="GDScript_grhkl"]
+script/source = "class_name level
+extends Node
+
+@export var num_players : int = 0
+var players : Array = []
+var input_maps : Array = []
+@onready var player_scene = preload(\"res://Scenes/Player/PlayerTemplate/player_template.tscn\")
+
+
+func add_player(player_index):
+	var player_copy = player_scene.instantiate()
+	player_copy.get_node(\"AnimatedSprite2D\").set_modulate(Color.BLUE_VIOLET)
+	player_copy.player_id= player_index
+	print(player_copy.player_id)
+	players.append(player_copy)
+	add_child(player_copy)
+	
+func remove_player(player_index):
+	pass
+	
+"
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_nu2m0"]
-texture = ExtResource("2_d46rr")
+texture = ExtResource("3_fh65y")
 texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
 0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
@@ -324,10 +347,10 @@ physics_layer_0/collision_layer = 1
 sources/1 = SubResource("TileSetAtlasSource_nu2m0")
 
 [node name="Main" type="Node2D"]
-script = ExtResource("1_1e1uu")
+script = ExtResource("1_64308")
 
 [node name="World" type="Node" parent="."]
-script = ExtResource("2_ko82p")
+script = SubResource("GDScript_grhkl")
 
 [node name="TileMap" type="TileMap" parent="World"]
 y_sort_enabled = true
@@ -344,7 +367,7 @@ layer_1/y_sort_origin = 0
 layer_1/z_index = 1
 layer_1/tile_data = PackedInt32Array(1, 262145, 8, 2, 327681, 8, 3, 327681, 8, 4, 327681, 8, 5, 327681, 8, 6, 327681, 8, 7, 393217, 8, -65539, 262145, 8, -65538, 393217, 8, -131062, 262145, 8, -131061, 393217, 8)
 
-[node name="Player" parent="World" instance=ExtResource("3_4il7o")]
+[node name="Player" parent="World" instance=ExtResource("4_3fum2")]
 
 [node name="RemoteTransform2D2" type="RemoteTransform2D" parent="World/Player"]
 remote_path = NodePath("../../Camera2D")
@@ -354,3 +377,6 @@ process_callback = 0
 position_smoothing_enabled = true
 drag_horizontal_enabled = true
 drag_vertical_enabled = true
+
+[node name="Player2" parent="World" instance=ExtResource("4_adk5l")]
+position = Vector2(49, 31)
