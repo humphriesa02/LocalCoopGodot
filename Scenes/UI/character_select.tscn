@@ -1,8 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://dlyg4bigdi0cx"]
+[gd_scene load_steps=6 format=3 uid="uid://dlyg4bigdi0cx"]
 
 [ext_resource type="Texture2D" uid="uid://bnbn8dx12svcs" path="res://Art/PlayerArt/TemplateArt/PlayerSelectArt.png" id="1_archl"]
 [ext_resource type="Script" path="res://Scripts/character_select.gd" id="1_wer31"]
-[ext_resource type="Script" path="res://Scripts/world.gd" id="3_3wgcf"]
 [ext_resource type="Texture2D" uid="uid://bqd1ueofq00y0" path="res://Art/TileSheet.png" id="4_tqh8m"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_nu2m0"]
@@ -399,7 +398,6 @@ expand_mode = 2
 stretch_mode = 3
 
 [node name="World" type="Node" parent="."]
-script = ExtResource("3_3wgcf")
 
 [node name="TileMap" type="TileMap" parent="World"]
 z_index = -1
@@ -414,15 +412,3 @@ layer_1/y_sort_enabled = false
 layer_1/y_sort_origin = 0
 layer_1/z_index = 1
 layer_1/tile_data = PackedInt32Array()
-
-[node name="PlayerSpawn" type="Node2D" parent="World"]
-position = Vector2(144, 94)
-
-[node name="PlayerSpawn2" type="Node2D" parent="World"]
-position = Vector2(234, 94)
-
-[node name="PlayerSpawn3" type="Node2D" parent="World"]
-position = Vector2(353, 94)
-
-[node name="PlayerSpawn4" type="Node2D" parent="World"]
-position = Vector2(462, 94)

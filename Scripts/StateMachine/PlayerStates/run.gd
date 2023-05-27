@@ -29,7 +29,7 @@ func physics_update(delta: float) -> void:
 	if is_crouching:
 		player.animation_player.play("crouch_run")
 		player.speed = player.crouch_speed
-		if Input.is_action_just_released("down"+str(player.player_id)):
+		if Input.is_action_just_released("ui_down"+str(player.player_id)):
 			player.animation_player.play("run")
 			player.speed = player.run_speed
 			is_crouching = false
@@ -56,11 +56,11 @@ func physics_update(delta: float) -> void:
 	
 #	
 
-	if Input.is_action_just_pressed("up"+str(player.player_id)):
+	if Input.is_action_just_pressed("ui_up"+str(player.player_id)):
 		state_machine.transition_to("Air", {do_jump = true})
-	elif Input.is_action_just_pressed("down"+str(player.player_id)):
+	elif Input.is_action_just_pressed("ui_down"+str(player.player_id)):
 		is_crouching = true
-	elif Input.is_action_just_pressed("attack"+str(player.player_id)):
+	elif Input.is_action_just_pressed("ui_primary_attack"+str(player.player_id)):
 		if is_sprinting:
 			state_machine.transition_to("Attack", {run = true})
 		else:

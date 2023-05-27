@@ -23,7 +23,7 @@ func update(delta: float) -> void:
 		
 	if is_crouching:
 		player.animation_player.play("crouch_idle")
-		if Input.is_action_just_released("down"+str(player.player_id)):
+		if Input.is_action_just_released("ui_down"+str(player.player_id)):
 			player.animation_player.play("idle")
 			is_crouching = false
 	
@@ -33,9 +33,9 @@ func update(delta: float) -> void:
 		# As we'll only have one air state for both jump and fall, we use the `msg` dictionary 
 		# to tell the next state that we want to jump.
 		state_machine.transition_to("Air", {do_jump = true})
-	elif Input.is_action_just_pressed("down"+str(player.player_id)):
+	elif Input.is_action_just_pressed("ui_down"+str(player.player_id)):
 		is_crouching = true
-	elif Input.is_action_just_pressed("attack"+str(player.player_id)):
+	elif Input.is_action_just_pressed("ui_primary_attack"+str(player.player_id)):
 		state_machine.transition_to("Attack", {idle = true})
 	elif not is_equal_approx(input_direction_x, 0.0):
 		if is_crouching:

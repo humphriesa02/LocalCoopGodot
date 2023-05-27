@@ -1,24 +1,29 @@
-class_name World
 extends Node
-
-@onready var player_spawn_one = $PlayerSpawn
-@onready var player_spawn_two = $PlayerSpawn2
-@onready var player_spawn_three = $PlayerSpawn3
-@onready var player_spawn_four = $PlayerSpawn4
 
 @export var num_players : int = 0
 var players : Array = []
 var input_maps : Array = []
 @onready var player_scene = preload("res://Scenes/Player/PlayerTemplate/player_template.tscn")
+# every time we add a new keyboard player, increment this so the mapping is separate from playercount
+# i.e., player 2 doesn't just automatically get a different input mapping
+var keyboard_map_index = 0
 
+var color_map = {
+	0: Color.RED,
+	1: Color.YELLOW,
+	2: Color.GREEN,
+	3: Color.BLUE
+}
+
+func _process(delta):
+	print(num_players)
 
 # From @sustainablelab
 func add_player(player_index, is_keyboard):
 	var player_copy = player_scene.instantiate()
-	player_copy.get_node("AnimatedSprite2D").set_modulate(Color.BLUE_VIOLET)
+	player_copy.get_node("AnimatedSprite2D").set_modulate(color_map[player_index])
 	player_copy.player_id = player_index
-	print(player_copy.player_id)
-	players.append(player_copy)
+	
 	
 	if not is_keyboard:
 		input_maps.append({
@@ -42,6 +47,9 @@ func add_player(player_index, is_keyboard):
 
 		var down_action: String
 		var down_action_event: InputEventJoypadMotion
+		
+		var primary_action: String
+		var primary_action_event: InputEventJoypadButton
 
 		right_action = "ui_right{n}".format({"n":player_index})
 		InputMap.add_action(right_action)
@@ -78,32 +86,44 @@ func add_player(player_index, is_keyboard):
 		down_action_event.axis = JOY_AXIS_LEFT_Y # <---- vertical axis
 		down_action_event.axis_value =  1.0 # <---- down
 		InputMap.action_add_event(down_action, down_action_event)
+		
+		primary_action = "ui_primary_attack{n}".format({"n":player_index})
+		InputMap.add_action(primary_action)
+		# Creat a new InputEvent instance to assign to the InputMap.
+		primary_action_event = InputEventJoypadButton.new()
+		primary_action_event.device = player_index
+		primary_action_event.button_index = JOY_BUTTON_A # <---- vertical axis
+		InputMap.action_add_event(primary_action, primary_action_event)
 	else:
 		# Use keyboard
 		# Map to keys for four people on one keyboard.
 		var arrows: Dictionary = {
-			"key_right": KEY_RIGHT,
-			"key_left":  KEY_LEFT,
-			"key_up":    KEY_UP,
-			"key_down":  KEY_DOWN,
+			"ui_right": KEY_RIGHT,
+			"ui_left":  KEY_LEFT,
+			"ui_up":    KEY_UP,
+			"ui_down":  KEY_DOWN,
+			"ui_primary_attack": KEY_SHIFT
 			}
 		var wasd: Dictionary = {
-			"key_right": KEY_D,
-			"key_left":  KEY_A,
-			"key_up":    KEY_W,
-			"key_down":  KEY_S,
+			"ui_right": KEY_D,
+			"ui_left":  KEY_A,
+			"ui_up":    KEY_W,
+			"ui_down":  KEY_S,
+			"ui_primary_attack": KEY_G
 			}
 		var hjkl: Dictionary = {
-			"key_right": KEY_L,
-			"key_left":  KEY_H,
-			"key_up":    KEY_K,
-			"key_down":  KEY_J,
+			"ui_right": KEY_L,
+			"ui_left":  KEY_H,
+			"ui_up":    KEY_K,
+			"ui_down":  KEY_J,
+			"ui_primary_attack": KEY_COLON
 			}
 		var uiop: Dictionary = {
-			"key_right": KEY_P,
-			"key_left":  KEY_U,
-			"key_up":    KEY_O,
-			"key_down":  KEY_I,
+			"ui_right": KEY_P,
+			"ui_left":  KEY_U,
+			"ui_up":    KEY_O,
+			"ui_down":  KEY_I,
+			"ui_primary_attack": KEY_BRACKETLEFT
 			}
 		var keymaps: Dictionary = {
 			0: arrows,
@@ -111,6 +131,7 @@ func add_player(player_index, is_keyboard):
 			2: hjkl,
 			3: uiop,
 			}
+		input_maps.append(keymaps[keyboard_map_index])
 
 		var right_action: String
 		var right_action_event: InputEventKey
@@ -123,48 +144,56 @@ func add_player(player_index, is_keyboard):
 
 		var down_action: String
 		var down_action_event: InputEventKey
+		
+		var primary_action: String
+		var primary_action_event: InputEventKey
 
 		right_action = "ui_right{n}".format({"n":player_index})
 		InputMap.add_action(right_action)
 		# Creat a new InputEvent instance to assign to the InputMap.
 		right_action_event = InputEventKey.new()
-		right_action_event.keycode = keymaps[player_index]["key_right"]
+		right_action_event.keycode = keymaps[keyboard_map_index]["ui_right"]
 		InputMap.action_add_event(right_action, right_action_event)
 
 		left_action = "ui_left{n}".format({"n":player_index})
 		InputMap.add_action(left_action)
 		# Creat a new InputEvent instance to assign to the InputMap.
 		left_action_event = InputEventKey.new()
-		left_action_event.keycode = keymaps[player_index]["key_left"]
+		left_action_event.keycode = keymaps[keyboard_map_index]["ui_left"]
 		InputMap.action_add_event(left_action, left_action_event)
 
 		up_action = "ui_up{n}".format({"n":player_index})
 		InputMap.add_action(up_action)
 		# Creat a new InputEvent instance to assign to the InputMap.
 		up_action_event = InputEventKey.new()
-		up_action_event.keycode = keymaps[player_index]["key_up"]
+		up_action_event.keycode = keymaps[keyboard_map_index]["ui_up"]
 		InputMap.action_add_event(up_action, up_action_event)
 
 		down_action = "ui_down{n}".format({"n":player_index})
 		InputMap.add_action(down_action)
 		# Creat a new InputEvent instance to assign to the InputMap.
 		down_action_event = InputEventKey.new()
-		down_action_event.keycode = keymaps[player_index]["key_down"]
+		down_action_event.keycode = keymaps[keyboard_map_index]["ui_down"]
 		InputMap.action_add_event(down_action, down_action_event)
-	spawn_player(player_index, player_copy)
+		
+		primary_action = "ui_primary_attack{n}".format({"n":player_index})
+		InputMap.add_action(primary_action)
+		# Creat a new InputEvent instance to assign to the InputMap.
+		primary_action_event = InputEventKey.new()
+		primary_action_event.keycode = keymaps[keyboard_map_index]["ui_primary_attack"]
+		InputMap.action_add_event(primary_action, primary_action_event)
+		
+		keyboard_map_index += 1
+	num_players += 1
+	players.append(player_copy)
 	
 	
 func remove_player(player_index):
 	pass
-	
-func spawn_player(player_index, player_copy):
-	if player_index == 0:
-		player_copy.transform = player_spawn_one.transform
-	elif player_index == 1:
-		player_copy.transform = player_spawn_two.transform
-	elif player_index == 2:
-		player_copy.transform = player_spawn_three.transform
-	elif player_index == 3:
-		player_copy.transform = player_spawn_four.transform
-	add_child(player_copy)
+
+# To get our players, spawn them here
+func spawn_player(player_index, player_spawn):
+	var current_player = players[player_index]
+	current_player.transform = player_spawn.transform
+	return current_player
 		

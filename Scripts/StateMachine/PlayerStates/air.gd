@@ -40,11 +40,11 @@ func physics_update(delta: float) -> void:
 		# handle jumping logic
 		
 		# if player still pressing up in "Air" state, keep track of how long
-		if Input.is_action_just_pressed("up" + str(player.player_id)):
+		if Input.is_action_just_pressed("ui_up" + str(player.player_id)):
 			jump_button_pressed = true
 			jump_button_press_time = 0
 		# when player releases the jump button, take note
-		elif Input.is_action_just_released("up" + str(player.player_id)):
+		elif Input.is_action_just_released("ui_up" + str(player.player_id)):
 			jump_button_pressed = false
 			if not has_double_jumped:
 				can_double_jump = true
@@ -78,7 +78,7 @@ func physics_update(delta: float) -> void:
 			else:	
 				player.animation_player.play("fall")
 			
-	if Input.is_action_just_pressed("up"+str(player.player_id)):
+	if Input.is_action_just_pressed("ui_up"+str(player.player_id)):
 		if not has_double_jumped:
 			if has_jumped and can_double_jump:
 				player.velocity.y = player.double_jump_velocity
@@ -88,9 +88,9 @@ func physics_update(delta: float) -> void:
 				player.velocity.y = player.double_jump_velocity
 				player.animation_player.play("double jump")
 				has_double_jumped = true
-	elif Input.is_action_pressed("attack"+str(player.player_id)):
+	elif Input.is_action_pressed("ui_primary_attack"+str(player.player_id)):
 		player.animation_player.play("a_air")
-	elif Input.is_action_pressed("down"+str(player.player_id)):
+	elif Input.is_action_pressed("ui_down"+str(player.player_id)):
 		if descent_modifier < max_descent_modifier:
 			descent_modifier += 1
 			
