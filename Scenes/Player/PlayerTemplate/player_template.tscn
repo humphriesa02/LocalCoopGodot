@@ -1410,7 +1410,7 @@ libraries = {
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 z_index = 1
 sprite_frames = SubResource("SpriteFrames_ub53l")
-animation = &"a_air"
+animation = &"run"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0.75, 4.5)
@@ -1452,12 +1452,12 @@ z_index = 4
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -16.0
+offset_left = -17.0
 offset_top = -38.0
-offset_right = 16.0
+offset_right = 17.0
 offset_bottom = -12.0
 grow_horizontal = 2
-text = "
-"
+pivot_offset = Vector2(17, 13)
+text = "Alex"
 horizontal_alignment = 1
 vertical_alignment = 1
