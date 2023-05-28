@@ -34,7 +34,7 @@ func _process(delta):
 
 
 
-func flip(direction):
+func flip():
 	if velocity.x > 0:
 		transform.x.x = 1
 		player_id_label.scale.x = 1

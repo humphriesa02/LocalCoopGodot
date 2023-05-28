@@ -34,7 +34,7 @@ func physics_update(delta: float) -> void:
 	# Horizontal movement.
 	var input_direction_x = player.get_input_direction()
 	player.velocity.x = player.speed * input_direction_x
-	player.flip(input_direction_x)
+	player.flip()
 	
 	if has_jumped:
 		# handle jumping logic
