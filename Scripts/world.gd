@@ -40,7 +40,7 @@ func add_player(player_index, is_keyboard):
 		var left_action_event: InputEventJoypadMotion
 
 		var up_action: String
-		var up_action_event: InputEventJoypadMotion
+		var up_action_event: InputEventJoypadButton
 
 		var down_action: String
 		var down_action_event: InputEventJoypadMotion
@@ -69,10 +69,9 @@ func add_player(player_index, is_keyboard):
 		up_action = "ui_up{n}".format({"n":player_index})
 		InputMap.add_action(up_action)
 		# Creat a new InputEvent instance to assign to the InputMap.
-		up_action_event = InputEventJoypadMotion.new()
+		up_action_event = InputEventJoypadButton.new()
 		up_action_event.device = player_index
-		up_action_event.axis = JOY_AXIS_LEFT_Y # <---- vertical axis
-		up_action_event.axis_value = -1.0 # <---- up
+		up_action_event.button_index = JOY_BUTTON_A
 		InputMap.action_add_event(up_action, up_action_event)
 
 		down_action = "ui_down{n}".format({"n":player_index})
@@ -89,7 +88,7 @@ func add_player(player_index, is_keyboard):
 		# Creat a new InputEvent instance to assign to the InputMap.
 		primary_action_event = InputEventJoypadButton.new()
 		primary_action_event.device = player_index
-		primary_action_event.button_index = JOY_BUTTON_A # <---- vertical axis
+		primary_action_event.button_index = JOY_BUTTON_X # <---- vertical axis
 		InputMap.action_add_event(primary_action, primary_action_event)
 	else:
 		# Use keyboard

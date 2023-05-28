@@ -1458,6 +1458,5 @@ offset_right = 17.0
 offset_bottom = -12.0
 grow_horizontal = 2
 pivot_offset = Vector2(17, 13)
-text = "Alex"
 horizontal_alignment = 1
 vertical_alignment = 1
