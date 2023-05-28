@@ -34,19 +34,21 @@ func _ready():
 
 func _process(delta):
 	player_id_label.text = "P"+str(player_id+1)
-	player_id_label.scale.x = 1
+
 
 
 func flip(direction):
 	if velocity.x > 0:
 		if current_dir == dirs.left:
 			current_dir = dirs.right
-			scale.x = -1
+			scale.x = 1
+			player_id_label.scale.x = -1
 
 	elif velocity.x < 0:
 		if current_dir == dirs.right:
 			current_dir = dirs.left
 			scale.x = -1
+			#player_id_label.scale.x = 1
 
 func get_input_direction():
 	var input_direction_x: float = (

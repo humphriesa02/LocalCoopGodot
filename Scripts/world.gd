@@ -15,9 +15,6 @@ var color_map = {
 	3: Color.BLUE
 }
 
-func _process(delta):
-	print(num_players)
-
 # From @sustainablelab
 func add_player(player_index, is_keyboard):
 	var player_copy = player_scene.instantiate()
