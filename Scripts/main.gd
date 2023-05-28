@@ -17,5 +17,6 @@ func _on_joy_connection_changed(device, connected):
 func setup_players():
 	print(World.num_players)
 	for i in World.num_players:
-		World.spawn_player(i, player_spawns[i])
+		var player = World.spawn_player(i, player_spawns[i])
+		add_child(player)
 

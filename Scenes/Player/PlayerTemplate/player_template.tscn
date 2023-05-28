@@ -1447,3 +1447,16 @@ script = ExtResource("12_65nsr")
 
 [node name="Damage" type="Node" parent="StateMachine"]
 script = ExtResource("20_4hucf")
+
+[node name="PlayerId" type="Label" parent="."]
+z_index = 4
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -16.0
+offset_top = -38.0
+offset_right = 16.0
+offset_bottom = -12.0
+grow_horizontal = 2
+horizontal_alignment = 1
+vertical_alignment = 1

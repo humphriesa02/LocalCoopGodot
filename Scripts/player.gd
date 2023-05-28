@@ -15,6 +15,7 @@ var speed : float
 @onready var animated_sprite : AnimatedSprite2D = $AnimatedSprite2D
 @onready var animation_player : AnimationPlayer = $AnimationPlayer
 @onready var state_machine : StateMachine = $StateMachine
+@onready var player_id_label : Label = $PlayerId
 
 @export var player_id = 0
 
@@ -30,6 +31,10 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 func _ready():
 	speed = walk_speed
 	current_dir = dirs.right
+
+func _process(delta):
+	player_id_label.text = "P"+str(player_id+1)
+	player_id_label.scale.x = 1
 
 
 func flip(direction):
