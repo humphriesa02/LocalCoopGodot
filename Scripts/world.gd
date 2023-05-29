@@ -16,7 +16,7 @@ var color_map = {
 }
 
 # From @sustainablelab
-func add_player(player_index, is_keyboard):
+func add_player(player_index, player_device = null, is_keyboard = true):
 	var player_copy = player_scene.instantiate()
 	player_copy.get_node("AnimatedSprite2D").set_modulate(color_map[player_index])
 	player_copy.player_id = player_index
@@ -41,6 +41,7 @@ func add_player(player_index, is_keyboard):
 
 		var up_action: String
 		var up_action_event: InputEventJoypadButton
+		var alternate_up_action_event: InputEventJoypadMotion
 
 		var down_action: String
 		var down_action_event: InputEventJoypadMotion
@@ -52,7 +53,7 @@ func add_player(player_index, is_keyboard):
 		InputMap.add_action(right_action)
 		# Creat a new InputEvent instance to assign to the InputMap.
 		right_action_event = InputEventJoypadMotion.new()
-		right_action_event.device = player_index
+		right_action_event.device = player_device
 		right_action_event.axis = JOY_AXIS_LEFT_X # <---- horizontal axis
 		right_action_event.axis_value =  1.0 # <---- right
 		InputMap.action_add_event(right_action, right_action_event)
@@ -61,7 +62,7 @@ func add_player(player_index, is_keyboard):
 		InputMap.add_action(left_action)
 		# Creat a new InputEvent instance to assign to the InputMap.
 		left_action_event = InputEventJoypadMotion.new()
-		left_action_event.device = player_index
+		left_action_event.device = player_device
 		left_action_event.axis = JOY_AXIS_LEFT_X # <---- horizontal axis
 		left_action_event.axis_value = -1.0 # <---- left
 		InputMap.action_add_event(left_action, left_action_event)
@@ -70,15 +71,22 @@ func add_player(player_index, is_keyboard):
 		InputMap.add_action(up_action)
 		# Creat a new InputEvent instance to assign to the InputMap.
 		up_action_event = InputEventJoypadButton.new()
-		up_action_event.device = player_index
+		up_action_event.device = player_device
 		up_action_event.button_index = JOY_BUTTON_A
 		InputMap.action_add_event(up_action, up_action_event)
+		
+		alternate_up_action_event = InputEventJoypadMotion.new()
+		alternate_up_action_event.device = player_device
+		alternate_up_action_event.axis = JOY_AXIS_LEFT_Y
+		alternate_up_action_event.axis_value = -1.0
+		InputMap.action_add_event(up_action, alternate_up_action_event)
+		
 
 		down_action = "ui_down{n}".format({"n":player_index})
 		InputMap.add_action(down_action)
 		# Creat a new InputEvent instance to assign to the InputMap.
 		down_action_event = InputEventJoypadMotion.new()
-		down_action_event.device = player_index
+		down_action_event.device = player_device
 		down_action_event.axis = JOY_AXIS_LEFT_Y # <---- vertical axis
 		down_action_event.axis_value =  1.0 # <---- down
 		InputMap.action_add_event(down_action, down_action_event)
@@ -87,7 +95,7 @@ func add_player(player_index, is_keyboard):
 		InputMap.add_action(primary_action)
 		# Creat a new InputEvent instance to assign to the InputMap.
 		primary_action_event = InputEventJoypadButton.new()
-		primary_action_event.device = player_index
+		primary_action_event.device = player_device
 		primary_action_event.button_index = JOY_BUTTON_X # <---- vertical axis
 		InputMap.action_add_event(primary_action, primary_action_event)
 	else:
