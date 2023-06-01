@@ -44,6 +44,8 @@ func _process(delta):
 		player_images[player_index].visible = true
 		World.add_player(player_index)
 		player_index += 1
+	elif Input.is_action_just_pressed("ui_cancel") and player_index > 1:
+		start_game()
 		
 		
 
