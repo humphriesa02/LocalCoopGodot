@@ -18,5 +18,6 @@ func setup_players():
 	print(World.num_players)
 	for i in World.num_players:
 		var player = World.spawn_player(i, player_spawns[i])
+		PlayerStatsSingleton.addPlayer(player)
 		add_child(player)
 

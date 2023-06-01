@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://b2llk2i187tp1"]
+[gd_scene load_steps=6 format=3 uid="uid://b2llk2i187tp1"]
 
 [ext_resource type="Script" path="res://Scripts/main.gd" id="1_64308"]
 [ext_resource type="Texture2D" uid="uid://bqd1ueofq00y0" path="res://Art/TileSheet.png" id="3_fh65y"]
+[ext_resource type="Script" path="res://Scripts/CameraFollow.gd" id="3_gv45h"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_nu2m0"]
 texture = ExtResource("3_fh65y")
@@ -341,13 +342,6 @@ layer_1/y_sort_origin = 0
 layer_1/z_index = 1
 layer_1/tile_data = PackedInt32Array(1, 262145, 8, 2, 327681, 8, 3, 327681, 8, 4, 327681, 8, 5, 327681, 8, 6, 327681, 8, 7, 393217, 8, -65539, 262145, 8, -65538, 393217, 8, -131062, 262145, 8, -131061, 393217, 8)
 
-[node name="Camera2D" type="Camera2D" parent="World"]
-position = Vector2(237, -7)
-process_callback = 0
-position_smoothing_enabled = true
-drag_horizontal_enabled = true
-drag_vertical_enabled = true
-
 [node name="PlayerSpawn" type="Node2D" parent="World"]
 position = Vector2(120, -99)
 
@@ -359,3 +353,10 @@ position = Vector2(350, -89)
 
 [node name="PlayerSpawn4" type="Node2D" parent="World"]
 position = Vector2(462, -86)
+
+[node name="Camera2D" type="Camera2D" parent="World"]
+process_callback = 0
+position_smoothing_enabled = true
+drag_horizontal_enabled = true
+drag_vertical_enabled = true
+script = ExtResource("3_gv45h")

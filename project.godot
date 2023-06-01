@@ -18,10 +18,15 @@ config/icon="res://icon.svg"
 [autoload]
 
 World="*res://Scripts/world.gd"
+PlayerStatsSingleton="*res://Scripts/PlayerStats_Singleton.gd"
 
 [display]
 
 window/stretch/scale=2.0
+
+[dotnet]
+
+project/assembly_name="Rocket Launcher"
 
 [editor_plugins]
 
